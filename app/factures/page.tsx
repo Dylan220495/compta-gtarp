@@ -21,14 +21,19 @@ export default function Factures() {
 
   const changerStatut = (id: number) => {
     setFactures(
-      factures.map(f => {
-        if (f.id === id) {
-          if (f.statut === "En attente") return { ...f, statut: "Payée" };
-          if (f.statut === "Payée") return { ...f, statut: "En retard" };
-          return { ...f, statut: "En attente" };
-        }
-        return f;
-      })
+      factures.map(f =>
+        f.id === id
+          ? {
+              ...f,
+              statut:
+                f.statut === "En attente"
+                  ? "Payée"
+                  : f.statut === "Payée"
+                  ? "En retard"
+                  : "En attente",
+            }
+          : f
+      )
     );
   };
 
