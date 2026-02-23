@@ -15,10 +15,31 @@ export default function Factures() {
     { id: 3, client: "Mécano Benny's", montant: 2300, statut: "En retard" },
   ]);
 
+  const [client, setClient] = useState("");
+  const [montant, setMontant] = useState("");
+
+  // Ajouter facture
+  const ajouterFacture = () => {
+    if (!client || !montant) return;
+
+    const nouvelleFacture: Facture = {
+      id: Date.now(),
+      client,
+      montant: Number(montant),
+      statut: "En attente",
+    };
+
+    setFactures([...factures, nouvelleFacture]);
+    setClient("");
+    setMontant("");
+  };
+
+  // Supprimer
   const supprimerFacture = (id: number) => {
     setFactures(factures.filter(f => f.id !== id));
   };
 
+  // Changer statut
   const changerStatut = (id: number) => {
     setFactures(
       factures.map(f =>
@@ -57,6 +78,47 @@ export default function Factures() {
         📄 Gestion des Factures
       </h1>
 
+      {/* FORMULAIRE */}
+      <div style={{
+        backgroundColor: "#1e293b",
+        padding: "20px",
+        borderRadius: "12px",
+        marginBottom: "30px"
+      }}>
+        <h3>Ajouter une facture</h3>
+
+        <input
+          type="text"
+          placeholder="Nom du client"
+          value={client}
+          onChange={(e) => setClient(e.target.value)}
+          style={{ padding: "8px", marginRight: "10px" }}
+        />
+
+        <input
+          type="number"
+          placeholder="Montant (€)"
+          value={montant}
+          onChange={(e) => setMontant(e.target.value)}
+          style={{ padding: "8px", marginRight: "10px" }}
+        />
+
+        <button
+          onClick={ajouterFacture}
+          style={{
+            backgroundColor: "#2563eb",
+            color: "white",
+            padding: "8px 15px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
+          Ajouter
+        </button>
+      </div>
+
+      {/* TABLEAU */}
       <div style={{
         backgroundColor: "#1e293b",
         padding: "20px",
@@ -92,15 +154,9 @@ export default function Factures() {
                 <td>
                   <button
                     onClick={() => changerStatut(facture.id)}
-                    style={{
-                      marginRight: "10px",
-                      padding: "5px 10px",
-                      borderRadius: "6px",
-                      border: "none",
-                      cursor: "pointer"
-                    }}
+                    style={{ marginRight: "10px" }}
                   >
-                    🔁 Statut
+                    🔁
                   </button>
 
                   <button
@@ -108,13 +164,13 @@ export default function Factures() {
                     style={{
                       backgroundColor: "#dc2626",
                       color: "white",
-                      padding: "5px 10px",
-                      borderRadius: "6px",
                       border: "none",
+                      borderRadius: "6px",
+                      padding: "5px 10px",
                       cursor: "pointer"
                     }}
                   >
-                    🗑 Supprimer
+                    🗑
                   </button>
                 </td>
               </tr>
