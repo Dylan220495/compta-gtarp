@@ -1,37 +1,34 @@
-export default function Factures() {
+export default function FacturesPage() {
   const factures = [
-    { id: 1, client: "Police", montant: 1500 },
-    { id: 2, client: "EMS", montant: 800 },
-    { id: 3, client: "Mécano Benny's", montant: 2300 },
-  ];
+    { id: 1, client: "Client A", montant: 250, statut: "Payée" },
+    { id: 2, client: "Client B", montant: 480, statut: "En attente" },
+    { id: 3, client: "Client C", montant: 120, statut: "Impayée" },
+  ]
 
   return (
-    <main style={{ padding: "40px", fontFamily: "Arial" }}>
+    <div style={{ padding: "20px" }}>
       <h1>📄 Liste des Factures</h1>
 
-      <table style={{ marginTop: "20px", borderCollapse: "collapse" }}>
+      <table border={1} cellPadding={10} style={{ marginTop: "20px" }}>
         <thead>
           <tr>
-            <th style={cellStyle}>ID</th>
-            <th style={cellStyle}>Client</th>
-            <th style={cellStyle}>Montant (€)</th>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Montant (€)</th>
+            <th>Statut</th>
           </tr>
         </thead>
         <tbody>
           {factures.map((facture) => (
             <tr key={facture.id}>
-              <td style={cellStyle}>{facture.id}</td>
-              <td style={cellStyle}>{facture.client}</td>
-              <td style={cellStyle}>{facture.montant}</td>
+              <td>{facture.id}</td>
+              <td>{facture.client}</td>
+              <td>{facture.montant}</td>
+              <td>{facture.statut}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </main>
-  );
+    </div>
+  )
 }
-
-const cellStyle = {
-  border: "1px solid white",
-  padding: "10px",
-};
